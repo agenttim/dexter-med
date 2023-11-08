@@ -33,6 +33,7 @@ export const AppNavigation = ({}) => {
                     component={MainScreen}
                     options={{
                         tabBarLabel: "Главная",
+                        headerShown: false,
                         tabBarIcon: ({color}) => (
                             <Feather name="home" size={25} color={color}/>
                         )
@@ -43,6 +44,7 @@ export const AppNavigation = ({}) => {
                     component={DocumentsScreen}
                     options={{
                         tabBarLabel: "Медкарта",
+                        headerTitle: "Ваши медицинские документы",
                         tabBarIcon: ({color}) => (
                             <Feather name="book" size={25} color={color}/>
                         )
@@ -53,6 +55,7 @@ export const AppNavigation = ({}) => {
                     component={ProfileScreen}
                     options={{
                         tabBarLabel: "Профиль",
+                        headerTitle: "Настройки профиля",
                         tabBarIcon: ({color}) => (
                             <Feather name="user" size={25} color={color}/>
                         )

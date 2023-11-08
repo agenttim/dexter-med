@@ -1,10 +1,10 @@
 import React from 'react';
-import {View, Text, StyleSheet} from 'react-native';
+import {View, Text, StyleSheet, Image} from 'react-native';
 
 export const MainScreen = ({}) => {
     return (
         <View style={styles.screenStyle}>
-            <Text>Main Screen</Text>
+            <Image style={styles.imageStyle} source={require('../../assets/Dexter-Medical.png')}/>
         </View>
     )
 }
@@ -12,7 +12,12 @@ export const MainScreen = ({}) => {
 const styles = StyleSheet.create({
     screenStyle: {
         flex: 1,
-        justifyContent: 'center',
+        justifyContent: 'flex-start',
         alignItems: 'center'
+    },
+    imageStyle: {
+        width: '100%',
+        height: 400,
+        marginTop: 50
     }
 })
