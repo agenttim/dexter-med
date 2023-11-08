@@ -6,6 +6,7 @@ import {ProfileScreen} from "../screens/ProfileScreen";
 import {createBottomTabNavigator} from "@react-navigation/bottom-tabs";
 import {Feather} from '@expo/vector-icons';
 import {THEME} from "../theme";
+import {LaboratoryTestsScreen} from "../screens/LaboratoryTestsScreen";
 
 
 const Tab = createBottomTabNavigator();
@@ -40,6 +41,17 @@ export const AppNavigation = ({}) => {
                     }}
                 />
                 <Tab.Screen
+                    name="LaboratoryTests"
+                    component={LaboratoryTestsScreen}
+                    options={{
+                        tabBarLabel: "Анализы",
+                        headerTitle: "Ваши лабораторные анализы",
+                        tabBarIcon: ({color}) => (
+                            <Feather name="droplet" size={25} color={color}/>
+                        )
+                    }}
+                />
+                <Tab.Screen
                     name="Documents"
                     component={DocumentsScreen}
                     options={{
@@ -50,7 +62,7 @@ export const AppNavigation = ({}) => {
                         )
                     }}
                 />
-                <Tab.Screen
+                                <Tab.Screen
                     name="Profile"
                     component={ProfileScreen}
                     options={{
