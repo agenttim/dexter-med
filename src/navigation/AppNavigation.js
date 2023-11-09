@@ -1,15 +1,18 @@
 import React from 'react';
 import {NavigationContainer} from "@react-navigation/native";
 import {MainScreen} from "../screens/MainScreen";
-import {DocumentsScreen} from "../screens/DocumentsScreen";
+import {DocumentsListScreen} from "../screens/DocumentsListScreen";
 import {ProfileScreen} from "../screens/ProfileScreen";
 import {createBottomTabNavigator} from "@react-navigation/bottom-tabs";
 import {Feather} from '@expo/vector-icons';
 import {THEME} from "../theme";
 import {LaboratoryTestsScreen} from "../screens/LaboratoryTestsScreen";
+import {createNativeStackNavigator} from "@react-navigation/native-stack";
+import {DocumentCardScreen} from "../screens/DocumentCardScreen";
 
 
 const Tab = createBottomTabNavigator();
+const Documents = createNativeStackNavigator();
 
 
 export const AppNavigation = ({}) => {
@@ -57,7 +60,7 @@ export const AppNavigation = ({}) => {
                 />
                 <Tab.Screen
                     name="Documents"
-                    component={DocumentsScreen}
+                    component={DocumentsNavigator}
                     options={{
                         tabBarLabel: "Медкарта",
                         headerTitle: "Ваши медицинские документы",
@@ -66,7 +69,7 @@ export const AppNavigation = ({}) => {
                         )
                     }}
                 />
-                                <Tab.Screen
+                <Tab.Screen
                     name="Profile"
                     component={ProfileScreen}
                     options={{
@@ -79,5 +82,22 @@ export const AppNavigation = ({}) => {
                 />
             </Tab.Navigator>
         </NavigationContainer>
+    )
+}
+
+function DocumentsNavigator() {
+    return (
+        <Documents.Navigator>
+            <Documents.Screen
+                name="DocumentsList"
+                component={DocumentsListScreen}
+                options={{headerShown: false}}
+            />
+            <Documents.Screen
+                name="DocumentCard"
+                component={DocumentCardScreen}
+                options={{headerShown: false}}
+            />
+        </Documents.Navigator>
     )
 }
