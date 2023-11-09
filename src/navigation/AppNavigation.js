@@ -26,7 +26,11 @@ export const AppNavigation = ({}) => {
                         height: 70,
                         paddingTop: 10,
                         paddingBottom: 10
-                    }
+                    },
+                    headerStyle: {
+                        borderBottomWidth: 1,
+                    },
+                    headerTintColor: THEME.MAIN_COLOR
                 }}
             >
                 <Tab.Screen

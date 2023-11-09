@@ -1,6 +1,7 @@
 import React from 'react';
 import {View, Text, StyleSheet, Image} from 'react-native';
 
+
 export const MainScreen = ({}) => {
     return (
         <View style={styles.screenStyle}>

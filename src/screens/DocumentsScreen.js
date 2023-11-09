@@ -1,18 +1,26 @@
 import React from 'react';
-import {View, Text, StyleSheet} from 'react-native';
+import {View, Text, StyleSheet, ScrollView, FlatList} from 'react-native';
+import {MedicalDocument} from "../components/MedicalDocument";
+import {DATA} from '../data'
+
 
 export const DocumentsScreen = ({}) => {
     return (
         <View style={styles.screenStyle}>
-            <Text>Documents Screen</Text>
+            <FlatList
+                data={DATA}
+                renderItem={({item}) => <MedicalDocument document={item}/>}
+            />
         </View>
     )
 }
 
 const styles = StyleSheet.create({
     screenStyle: {
+        padding: 10,
         flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center'
+        borderWidth: 1,
+        borderColor: 'red'
+
     }
 })
