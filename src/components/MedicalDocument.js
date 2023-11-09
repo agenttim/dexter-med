@@ -1,16 +1,19 @@
 import React from 'react';
-import {View, Text, StyleSheet} from 'react-native';
+import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
 import {THEME} from "../theme";
 
-export const MedicalDocument = ({document}) => {
+export const MedicalDocument = ({document, onPress}) => {
     return (
-        <View style={styles.componentStyle}>
-            <Text>{document.description}</Text>
-            <Text>
-                {new Date(document.date)
-                    .toLocaleDateString('ru', {separator: '.'})}
-            </Text>
-        </View>
+        <TouchableOpacity onPress={onPress}>
+            <View style={styles.componentStyle}>
+                <Text>{document.description}</Text>
+                <Text>
+                    {new Date(document.date)
+                        .toLocaleDateString('ru', {separator: '.'})}
+                </Text>
+            </View>
+        </TouchableOpacity>
+
     )
 }
 

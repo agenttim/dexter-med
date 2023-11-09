@@ -1,10 +1,12 @@
 import React from 'react';
 import {View, Text, StyleSheet} from 'react-native';
 
-export const DocumentCardScreen = ({}) => {
+export const DocumentCardScreen = ({route}) => {
+    const {document} = route.params;
+
     return (
         <View style={styles.screenStyle}>
-            <Text>Documents Card Screen</Text>
+            <Text>{document.file}</Text>
         </View>
     )
 }
