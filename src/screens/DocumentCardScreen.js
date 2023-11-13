@@ -1,15 +1,44 @@
-import React from 'react';
-import {View, Text, StyleSheet, Dimensions} from 'react-native';
+import React, {useEffect} from 'react';
+import {View, Text, StyleSheet, Dimensions, Image} from 'react-native';
 import Pdf from "react-native-pdf";
+import {Asset} from 'expo-asset';
 
 export const DocumentCardScreen = ({route}) => {
-    const {document} = route.params;
-    const PdfRead = {uri: 'https://getfile.dokpub.com/yandex/get/https://disk.yandex.ru/i/1F5doIa4LoW8JQ', cache: true}
+    const {document} = route.params
+
+    useEffect(() => {
+        async function loadPdf() {
+
+            setTimeout(async () => {
+                const asset = Asset.fromModule(document.file);
+                await asset.downloadAsync();
+                console.log(asset);
+
+                const pdfFile = {uri: asset.localUri, cache: true};
+
+                setPdfSource(pdfFile);
+            }, 2000)
+
+
+        }
+
+        loadPdf();
+    }, []);
+
+    const [pdfSource, setPdfSource] = React.useState(null);
+
+    if (!pdfSource) {
+        return (
+            <View style={styles.screenStyle}>
+                <Text>Загрузка...</Text>
+            </View>
+        )
+    }
 
     return (
         <View style={styles.screenStyle}>
             <Pdf
-                source={PdfRead}
+                source={pdfSource}
                 style={styles.pdf}
                 trustAllCerts={false}
                 onLoadComplete={(numberOfPages, filePath) => {
