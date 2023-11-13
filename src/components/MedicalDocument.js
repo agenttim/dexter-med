@@ -13,7 +13,6 @@ export const MedicalDocument = ({document, onPress}) => {
                 {new Date(document.date)
                     .toLocaleDateString('ru', {separator: '.'})}
             </Text>
-            <Text>Тест</Text>
         </TouchableOpacity>
     )
 }

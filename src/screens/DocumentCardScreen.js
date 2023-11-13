@@ -17,7 +17,7 @@ export const DocumentCardScreen = ({route}) => {
                 const pdfFile = {uri: asset.localUri, cache: true};
 
                 setPdfSource(pdfFile);
-            }, 2000)
+            }, 500)
 
 
         }
