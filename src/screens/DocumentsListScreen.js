@@ -12,6 +12,10 @@ export const DocumentsListScreen = ({navigation}) => {
         navigation.navigate('DocumentCard', {document})
     }
 
+    const newDocumentHandler = () => {
+        navigation.navigate('NewDocumentCard')
+    }
+
     return (
         <View style={styles.screenStyle}>
             <FlatList
@@ -19,7 +23,10 @@ export const DocumentsListScreen = ({navigation}) => {
                 renderItem={({item}) => <MedicalDocument document={item} onPress={() => openDocumentHandler(item)}/>}
             />
             <View style={styles.buttonContainer}>
-                <TouchableOpacity style={styles.roundButton}>
+                <TouchableOpacity
+                    style={styles.roundButton}
+                    onPress={newDocumentHandler}
+                >
                     <Feather name="plus" size={25} color="white" />
                 </TouchableOpacity>
             </View>

@@ -9,6 +9,7 @@ import {THEME} from "../theme";
 import {LaboratoryTestsScreen} from "../screens/LaboratoryTestsScreen";
 import {createNativeStackNavigator} from "@react-navigation/native-stack";
 import {DocumentCardScreen} from "../screens/DocumentCardScreen";
+import {NewDocumentCardScreen} from "../screens/NewDocumentCardScreen";
 
 
 const Tab = createBottomTabNavigator();
@@ -96,6 +97,11 @@ function DocumentsNavigator() {
             <Documents.Screen
                 name="DocumentCard"
                 component={DocumentCardScreen}
+                options={{headerShown: false}}
+            />
+            <Documents.Screen
+                name="NewDocumentCard"
+                component={NewDocumentCardScreen}
                 options={{headerShown: false}}
             />
         </Documents.Navigator>
