@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import {View, Text, TextInput, Button, StyleSheet, SafeAreaView} from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import {THEME} from "../theme";
+import {DateSelection} from "../components/DateSelection";
 
 
 export const NewDocumentCardScreen = () => {
@@ -9,7 +10,6 @@ export const NewDocumentCardScreen = () => {
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
     const [date, setDate] = useState(new Date());
-    const [show, setShow] = useState(false);
 
 
     const addDocument = async () => {
@@ -38,18 +38,7 @@ export const NewDocumentCardScreen = () => {
         } catch (error) {
             console.log(error);
         }
-
     }
-
-    const onChange = (event, selectedDate) => {
-        const currentDate = selectedDate;
-        setShow(false);
-        setDate(currentDate);
-    }
-
-    const showDatepicker = () => {
-        setShow(true);
-    };
 
     return (
         <View style={styles.container}>
@@ -67,24 +56,7 @@ export const NewDocumentCardScreen = () => {
                 onChangeText={setDescription}
             />
 
-            <Text>
-                Дата документа: {date.toLocaleDateString(
-                'ru-RU', {
-                    day: 'numeric',
-                    month: 'long',
-                    year: 'numeric'
-                }
-            ).toLocaleString()}
-            </Text>
-            <View style={styles.button}>
-                <Button onPress={showDatepicker} title="Выбрать дату"/>
-            </View>
-            {show && (
-                <DateTimePicker
-                    value={date}
-                    onChange={onChange}
-                />
-            )}
+            <DateSelection onSelectedDate={setDate}/>
 
             <Button title="Добавить новую запись" onPress={addDocument} color={THEME.MAIN_COLOR}/>
 
