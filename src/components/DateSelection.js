@@ -29,7 +29,7 @@ export const DateSelection = ({onSelectedDate}) => {
             </Text>
 
             <View style={styles.button}>
-                <Button onPress={showDatepicker} title="Выбрать дату"/>
+                <Button onPress={showDatepicker} title="Изменить дату"/>
             </View>
 
             {show && (<DateTimePicker value={date} onChange={onChange}/>)}

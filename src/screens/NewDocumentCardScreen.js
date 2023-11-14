@@ -45,12 +45,14 @@ export const NewDocumentCardScreen = () => {
             <Text>Добавить новый документ</Text>
 
             <TextInput
+                style={styles.input}
                 placeholder="Название"
                 value={title}
                 onChangeText={setTitle}
             />
 
             <TextInput
+                style={styles.input}
                 placeholder="Описание"
                 value={description}
                 onChangeText={setDescription}
@@ -71,5 +73,13 @@ const styles = StyleSheet.create({
     },
     button: {
         marginVertical: 15
-    }
+    },
+    input: {
+        paddingVertical: 10,
+        paddingHorizontal: 5,
+        marginVertical: 5,
+        borderWidth: 1,
+        borderColor: THEME.INACTIVE_COLOR
+    },
+
 })
