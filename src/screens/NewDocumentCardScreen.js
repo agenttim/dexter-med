@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import {View, Text, TextInput, Button, StyleSheet, SafeAreaView} from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
+import {THEME} from "../theme";
 
 
 export const NewDocumentCardScreen = () => {
@@ -9,8 +10,6 @@ export const NewDocumentCardScreen = () => {
     const [description, setDescription] = useState('');
     const [date, setDate] = useState(new Date());
     const [show, setShow] = useState(false);
-    const [mode, setMode] = useState('date');
-
 
 
     const addDocument = async () => {
@@ -48,51 +47,46 @@ export const NewDocumentCardScreen = () => {
         setDate(currentDate);
     }
 
-    const showMode = (currentMode) => {
-        setShow(true);
-        setMode(currentMode);
-    };
-
     const showDatepicker = () => {
-        showMode('date');
-    };
-
-    const showTimepicker = () => {
-        showMode('time');
+        setShow(true);
     };
 
     return (
         <View style={styles.container}>
-            <Text>Add New Document</Text>
+            <Text>Добавить новый документ</Text>
 
             <TextInput
-                placeholder="Title"
+                placeholder="Название"
                 value={title}
                 onChangeText={setTitle}
             />
 
             <TextInput
-                placeholder="Description"
+                placeholder="Описание"
                 value={description}
                 onChangeText={setDescription}
             />
 
-            <SafeAreaView>
-                <Button onPress={showDatepicker} title="Show date picker!" />
-                <Button onPress={showTimepicker} title="Show time picker!" />
-                <Text>selected: {date.toLocaleString()}</Text>
-                {show && (
-                    <DateTimePicker
-                        testID="dateTimePicker"
-                        value={date}
-                        mode={mode}
-                        is24Hour={true}
-                        onChange={onChange}
-                    />
-                )}
-            </SafeAreaView>
+            <Text>
+                Дата документа: {date.toLocaleDateString(
+                'ru-RU', {
+                    day: 'numeric',
+                    month: 'long',
+                    year: 'numeric'
+                }
+            ).toLocaleString()}
+            </Text>
+            <View style={styles.button}>
+                <Button onPress={showDatepicker} title="Выбрать дату"/>
+            </View>
+            {show && (
+                <DateTimePicker
+                    value={date}
+                    onChange={onChange}
+                />
+            )}
 
-            <Button title="Add" onPress={addDocument}/>
+            <Button title="Добавить новую запись" onPress={addDocument} color={THEME.MAIN_COLOR}/>
 
         </View>
     );
@@ -103,8 +97,7 @@ const styles = StyleSheet.create({
         flex: 1,
         padding: 20
     },
-    dateContainer: {
-        flexDirection: 'row',
-        alignItems: 'center'
+    button: {
+        marginVertical: 15
     }
-});
+})
