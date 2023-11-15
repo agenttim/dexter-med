@@ -3,6 +3,7 @@ import {View, Text, TextInput, Button, StyleSheet, SafeAreaView} from 'react-nat
 import DateTimePicker from '@react-native-community/datetimepicker';
 import {THEME} from "../theme";
 import {DateSelection} from "../components/DateSelection";
+import {PdfLoading} from "../components/PdfLoading";
 
 
 export const NewDocumentCardScreen = () => {
@@ -59,6 +60,8 @@ export const NewDocumentCardScreen = () => {
             />
 
             <DateSelection onSelectedDate={setDate}/>
+
+            <PdfLoading/>
 
             <Button title="Добавить новую запись" onPress={addDocument} color={THEME.MAIN_COLOR}/>
 
