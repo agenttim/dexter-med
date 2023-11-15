@@ -4,6 +4,7 @@ import DocumentPicker from 'react-native-document-picker';
 import Pdf from "react-native-pdf";
 import RNFS from 'react-native-fs';
 import {check, PERMISSIONS, request, RESULTS} from "react-native-permissions";
+import {THEME} from "../theme";
 
 
 export const PdfLoading = () => {
@@ -60,11 +61,18 @@ export const PdfLoading = () => {
     return (
         <View style={styles.container}>
             <Text>Загрузка ПДФ</Text>
-            <Button title="Выбрать PDF" onPress={pickDocument}/>
-
+            <View style={styles.button}>
+                <Button
+                    title="Выбрать PDF"
+                    onPress={pickDocument}
+                />
+            </View>
             {pdfUri && (
-                <View>
-                    <Pdf source={{uri: pdfUri, cache: true}} style={styles.pdf}/>
+                <View style={styles.pdfWrapper}>
+                    <Pdf
+                        source={{uri: pdfUri, cache: true}}
+                        style={styles.pdf}
+                    />
                 </View>
             )}
 
@@ -77,13 +85,24 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        borderWidth: 1,
+        //borderWidth: 1,
         marginBottom: 10
     },
     pdf: {
         flex: 1,
-        width: 200,
+    },
+    pdfWrapper: {
+        //alignItems: "flex-start",
+        //justifyContent: "flex-start",
+        flex: 1,
+        width: '100%',
         borderWidth: 1,
-
+        borderColor: THEME.INACTIVE_COLOR,
+        marginVertical: 20,
+        marginLeft: 0
+    },
+    button: {
+        width: '100%', // Растягивается на всю доступную ширину
+        marginTop: 10, // Добавлен верхний отступ
     }
 });
