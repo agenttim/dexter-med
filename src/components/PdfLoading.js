@@ -9,7 +9,6 @@ import {check, PERMISSIONS, request, RESULTS} from "react-native-permissions";
 export const PdfLoading = () => {
     const [pdfUri, setPdfUri] = useState(null);
 
-
     const checkAndRequestPermissions = async () => {
         const result = await check(PERMISSIONS.ANDROID.READ_EXTERNAL_STORAGE);
 
@@ -26,7 +25,7 @@ export const PdfLoading = () => {
     };
 
     useEffect(() => {
-        checkAndRequestPermissions();
+        checkAndRequestPermissions()
     }, []);
 
     const pickDocument = async () => {
@@ -63,14 +62,11 @@ export const PdfLoading = () => {
             <Text>Загрузка ПДФ</Text>
             <Button title="Выбрать PDF" onPress={pickDocument}/>
 
-            <View style={{borderWidth: 1, borderColor: 'red', height: 200, width: '90%'}}>
-                {/*<Text>PDF загружен:</Text>
-                <Text>{pdfUri}</Text>*/}
-                <Pdf
-                    source={{uri: pdfUri, cache: false}}
-                    style={styles.pdf}
-                />
-            </View>
+            {pdfUri && (
+                <View>
+                    <Pdf source={{uri: pdfUri, cache: true}} style={styles.pdf}/>
+                </View>
+            )}
 
         </View>
     );
@@ -86,7 +82,8 @@ const styles = StyleSheet.create({
     },
     pdf: {
         flex: 1,
-        width: Dimensions.get('window').width,
-        height: Dimensions.get('window').height,
+        width: 200,
+        borderWidth: 1,
+
     }
 });
