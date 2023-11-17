@@ -1,25 +1,22 @@
 import React, {useEffect} from 'react';
 import {View, Text, StyleSheet, Dimensions, Image} from 'react-native';
 import Pdf from "react-native-pdf";
-import {Asset} from 'expo-asset';
 
 export const DocumentCardScreen = ({route}) => {
     const {document} = route.params
 
     useEffect(() => {
         async function loadPdf() {
+            try {
+                // Замените этот URL на актуальный адрес вашего PDF-файла
+                const pdfUrl = document.file;
 
-            setTimeout(async () => {
-                const asset = Asset.fromModule(document.file);
-                await asset.downloadAsync();
-                console.log(asset);
-
-                const pdfFile = {uri: asset.localUri, cache: true};
+                const pdfFile = { uri: pdfUrl, cache: true };
 
                 setPdfSource(pdfFile);
-            }, 500)
-
-
+            } catch (error) {
+                console.error('Ошибка загрузки PDF:', error);
+            }
         }
 
         loadPdf();

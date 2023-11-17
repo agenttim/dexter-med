@@ -1,12 +1,29 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {View, Text, StyleSheet, ScrollView, FlatList, Button, TouchableOpacity} from 'react-native';
 import {MedicalDocument} from "../components/MedicalDocument";
-import {DATA} from '../data'
 import {Feather, Ionicons} from "@expo/vector-icons";
 import {THEME} from "../theme";
 
 
 export const DocumentsListScreen = ({navigation}) => {
+
+    const [data, setData] = useState([]);
+
+    useEffect(() => {
+        // Fetch data when the component mounts
+        fetchData();
+    }, []);
+
+    const fetchData = async () => {
+        try {
+            const response = await fetch('https://dexter-med-34099-default-rtdb.firebaseio.com/medical-documents.json'); // Replace with your API endpoint
+            const result = await response.json();
+            const documentsArray = Object.values(result);
+            setData(documentsArray);
+        } catch (error) {
+            console.error('Error fetching data:', error);
+        }
+    };
 
     const openDocumentHandler = (document) => {
         navigation.navigate('DocumentCard', {document})
@@ -19,7 +36,7 @@ export const DocumentsListScreen = ({navigation}) => {
     return (
         <View style={styles.screenStyle}>
             <FlatList
-                data={DATA}
+                data={data}
                 renderItem={({item}) => <MedicalDocument document={item} onPress={() => openDocumentHandler(item)}/>}
             />
             <View style={styles.buttonContainer}>

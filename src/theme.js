@@ -1,5 +1,5 @@
 export const THEME = {
-    MAIN_COLOR: '#8465e2',
-    INACTIVE_COLOR: '#a1a8d8',
+    MAIN_COLOR: '#ea589a',
+    INACTIVE_COLOR: '#ebbaba',
     DANGER_COLOR: '#d81b60'
 }

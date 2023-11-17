@@ -21,7 +21,7 @@ export const NewDocumentCardScreen = () => {
             title,
             description,
             date: date.toJSON(),
-            pdfUrl: pdfUrl
+            file: pdfUrl
         }
 
         try {

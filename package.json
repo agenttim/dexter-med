@@ -19,7 +19,6 @@
     "@react-navigation/native": "^6.1.9",
     "@react-navigation/native-stack": "^6.9.17",
     "expo": "^49.0.17",
-    "expo-asset": "^8.10.1",
     "expo-dev-client": "^2.4.12",
     "expo-file-system": "~15.4.4",
     "expo-image-picker": "~14.3.2",
