@@ -1,11 +1,12 @@
-import React, { useState, useEffect } from 'react';
-import { View, Text, Button, StyleSheet } from 'react-native';
+import React, {useState, useEffect} from 'react';
+import {View, Text, Button, StyleSheet} from 'react-native';
 import DocumentPicker from 'react-native-document-picker';
 import Pdf from 'react-native-pdf';
 import RNFS from 'react-native-fs';
-import { check, PERMISSIONS, request, RESULTS } from 'react-native-permissions';
-import { firebase } from '@react-native-firebase/app';
+import {check, PERMISSIONS, request, RESULTS} from 'react-native-permissions';
+import {firebase} from '@react-native-firebase/app';
 import storage from '@react-native-firebase/storage';
+import firebaseConfig from '../firebaseConfig';
 
 if (!firebase.apps.length) {
     firebase.initializeApp(firebaseConfig);
@@ -116,11 +117,11 @@ export const PdfLoading = () => {
         <View style={styles.container}>
             <Text>Загрузка PDF</Text>
             <View style={styles.button}>
-                <Button title="Выбрать PDF" onPress={pickDocument} />
+                <Button title="Выбрать PDF" onPress={pickDocument}/>
             </View>
             {pdfUri && (
                 <View style={styles.pdfWrapper}>
-                    <Pdf source={{ uri: pdfUri, cache: true }} style={styles.pdf} />
+                    <Pdf source={{uri: pdfUri, cache: true}} style={styles.pdf}/>
                 </View>
             )}
             {uploadProgress > 0 && (
