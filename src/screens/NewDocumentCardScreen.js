@@ -6,7 +6,7 @@ import {DateSelection} from "../components/DateSelection";
 import {PdfLoading} from "../components/PdfLoading";
 
 
-export const NewDocumentCardScreen = () => {
+export const NewDocumentCardScreen = ({navigation}) => {
 
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
@@ -40,6 +40,8 @@ export const NewDocumentCardScreen = () => {
                 setDescription('');
                 setPdfUrl('')
             }
+
+            navigation.navigate('DocumentsList')
 
         } catch (error) {
             console.log(error);

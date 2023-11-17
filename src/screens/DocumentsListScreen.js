@@ -12,7 +12,7 @@ export const DocumentsListScreen = ({navigation}) => {
     useEffect(() => {
         // Fetch data when the component mounts
         fetchData();
-    }, []);
+    }, [navigation]);
 
     const fetchData = async () => {
         try {
