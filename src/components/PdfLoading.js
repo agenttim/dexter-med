@@ -1,32 +1,39 @@
-import React, {useState, useEffect} from 'react';
-import {View, Text, Button, StyleSheet, Dimensions} from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, Text, Button, StyleSheet } from 'react-native';
 import DocumentPicker from 'react-native-document-picker';
-import Pdf from "react-native-pdf";
+import Pdf from 'react-native-pdf';
 import RNFS from 'react-native-fs';
-import {check, PERMISSIONS, request, RESULTS} from "react-native-permissions";
-import {THEME} from "../theme";
+import { check, PERMISSIONS, request, RESULTS } from 'react-native-permissions';
+import { firebase } from '@react-native-firebase/app';
+import storage from '@react-native-firebase/storage';
 
+if (!firebase.apps.length) {
+    firebase.initializeApp(firebaseConfig);
+}
 
 export const PdfLoading = () => {
     const [pdfUri, setPdfUri] = useState(null);
+    const [uploadProgress, setUploadProgress] = useState(0);
 
     const checkAndRequestPermissions = async () => {
         const result = await check(PERMISSIONS.ANDROID.READ_EXTERNAL_STORAGE);
 
         if (result === RESULTS.GRANTED) {
-            console.log('Permission granted');
+            console.log('Разрешение предоставлено');
         } else {
-            const permissionResult = await request(PERMISSIONS.ANDROID.READ_EXTERNAL_STORAGE);
+            const permissionResult = await request(
+                PERMISSIONS.ANDROID.READ_EXTERNAL_STORAGE
+            );
             if (permissionResult === RESULTS.GRANTED) {
-                console.log('Permission granted');
+                console.log('Разрешение предоставлено');
             } else {
-                console.log('Permission denied');
+                console.log('Разрешение отклонено');
             }
         }
     };
 
     useEffect(() => {
-        checkAndRequestPermissions()
+        checkAndRequestPermissions();
     }, []);
 
     const pickDocument = async () => {
@@ -38,16 +45,20 @@ export const PdfLoading = () => {
             if (Array.isArray(result) && result.length > 0) {
                 const firstDocument = result[0];
 
-                // Создайте путь к директории внутри приложения (например, кэш)
+                // Создайте путь к каталогу внутри приложения (например, кэш)
                 const appDir = RNFS.CachesDirectoryPath;
                 const newPath = `${appDir}/selected.pdf`;
 
-                // Скопируйте файл внутрь вашего приложения
+                // Копируйте файл внутрь вашего приложения
                 await RNFS.copyFile(firstDocument.uri, newPath);
 
+                // Установите локальный URI для предварительного просмотра PDF
                 setPdfUri(newPath);
+
+                // Загрузите файл в Firebase Storage
+                await uploadFileToFirebaseStorage(newPath);
             } else {
-                console.log('Invalid document result:', result);
+                console.log('Недопустимый результат выбора документа:', result);
             }
         } catch (err) {
             if (DocumentPicker.isCancel(err)) {
@@ -58,24 +69,63 @@ export const PdfLoading = () => {
         }
     };
 
+    const uploadFileToFirebaseStorage = async (localFilePath) => {
+        // Ссылка на корзину Firebase Storage
+        const storageRef = storage().ref('gs://dexter-med.appspot.com');
+
+        try {
+            // Получите данные файла в формате base64
+            const fileData = await RNFS.readFile(localFilePath, 'base64');
+
+            // Создайте уникальное имя для файла в Firebase Storage
+            const fileName = `${Date.now()}_${Math.floor(
+                Math.random() * 100000
+            )}.pdf`;
+
+            // Создайте ссылку на файл в Firebase Storage
+            const fileRef = storageRef.child(fileName);
+
+            // Загрузите файл в Firebase Storage
+            const uploadTask = fileRef.putString(fileData, 'base64');
+
+            // Слушайте изменения состояния, ошибки и завершение загрузки
+            uploadTask.on(
+                'state_changed',
+                (snapshot) => {
+                    const progress =
+                        (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                    setUploadProgress(progress);
+                },
+                (error) => {
+                    console.error('Ошибка загрузки файла:', error);
+                },
+                () => {
+                    console.log('Файл успешно загружен');
+                    // Получите URL для загруженного файла
+                    fileRef.getDownloadURL().then((downloadURL) => {
+                        console.log('Файл доступен по адресу:', downloadURL);
+                    });
+                }
+            );
+        } catch (error) {
+            console.error('Ошибка чтения файла:', error);
+        }
+    };
+
     return (
         <View style={styles.container}>
-            <Text>Загрузка ПДФ</Text>
+            <Text>Загрузка PDF</Text>
             <View style={styles.button}>
-                <Button
-                    title="Выбрать PDF"
-                    onPress={pickDocument}
-                />
+                <Button title="Выбрать PDF" onPress={pickDocument} />
             </View>
             {pdfUri && (
                 <View style={styles.pdfWrapper}>
-                    <Pdf
-                        source={{uri: pdfUri, cache: true}}
-                        style={styles.pdf}
-                    />
+                    <Pdf source={{ uri: pdfUri, cache: true }} style={styles.pdf} />
                 </View>
             )}
-
+            {uploadProgress > 0 && (
+                <Text>Прогресс загрузки: {uploadProgress.toFixed(2)}%</Text>
+            )}
         </View>
     );
 };
@@ -85,24 +135,20 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        //borderWidth: 1,
-        marginBottom: 10
+        marginBottom: 10,
     },
     pdf: {
         flex: 1,
     },
     pdfWrapper: {
-        //alignItems: "flex-start",
-        //justifyContent: "flex-start",
         flex: 1,
         width: '100%',
         borderWidth: 1,
-        borderColor: THEME.INACTIVE_COLOR,
+        borderColor: 'gray',
         marginVertical: 20,
-        marginLeft: 0
     },
     button: {
-        width: '100%', // Растягивается на всю доступную ширину
-        marginTop: 10, // Добавлен верхний отступ
-    }
+        width: '100%',
+        marginTop: 10,
+    },
 });

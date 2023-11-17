@@ -22,7 +22,7 @@ export const NewDocumentCardScreen = () => {
         }
 
         try {
-            const response = await fetch('https://dexter-med-default-rtdb.europe-west1.firebasedatabase.app/medical-documents.json', {
+            const response = await fetch('https://dexter-med-34099-default-rtdb.firebaseio.com/medical-documents.json', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
