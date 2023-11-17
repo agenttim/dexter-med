@@ -12,7 +12,7 @@ if (!firebase.apps.length) {
     firebase.initializeApp(firebaseConfig);
 }
 
-export const PdfLoading = () => {
+export const PdfLoading = ({onPdfUrl}) => {
     const [pdfUri, setPdfUri] = useState(null);
     const [uploadProgress, setUploadProgress] = useState(0);
 
@@ -105,6 +105,7 @@ export const PdfLoading = () => {
                     // Получите URL для загруженного файла
                     fileRef.getDownloadURL().then((downloadURL) => {
                         console.log('Файл доступен по адресу:', downloadURL);
+                        onPdfUrl(downloadURL)
                     });
                 }
             );

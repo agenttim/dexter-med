@@ -11,6 +11,8 @@ export const NewDocumentCardScreen = () => {
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
     const [date, setDate] = useState(new Date());
+    const [pdfUrl, setPdfUrl] = useState(null);
+
 
 
     const addDocument = async () => {
@@ -18,7 +20,8 @@ export const NewDocumentCardScreen = () => {
         const document = {
             title,
             description,
-            date: date.toJSON()
+            date: date.toJSON(),
+            pdfUrl: pdfUrl
         }
 
         try {
@@ -32,8 +35,10 @@ export const NewDocumentCardScreen = () => {
 
             if (response.ok) {
                 alert('Медицинский документ успешно добавлен!');
+                console.log(document)
                 setTitle('');
                 setDescription('');
+                setPdfUrl('')
             }
 
         } catch (error) {
@@ -61,7 +66,7 @@ export const NewDocumentCardScreen = () => {
 
             <DateSelection onSelectedDate={setDate}/>
 
-            <PdfLoading/>
+            <PdfLoading onPdfUrl={setPdfUrl}/>
 
             <Button title="Добавить новую запись" onPress={addDocument} color={THEME.MAIN_COLOR}/>
 
