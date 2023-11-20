@@ -8,6 +8,7 @@ export const MedicalDocument = ({document, onPress}) => {
             style={styles.componentStyle}
             onPress={onPress}
         >
+            <Text>{document.title}</Text>
             <Text>{document.description}</Text>
             <Text>
                 {new Date(document.date)

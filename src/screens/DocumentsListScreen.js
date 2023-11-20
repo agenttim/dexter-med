@@ -10,8 +10,13 @@ export const DocumentsListScreen = ({navigation}) => {
     const [data, setData] = useState([]);
 
     useEffect(() => {
-        // Fetch data when the component mounts
-        fetchData();
+        const unsubscribe = navigation.addListener('focus', () => {
+            // Fetch data when the screen comes into focus
+            fetchData();
+        });
+
+        // Clean up the listener when the component unmounts
+        return unsubscribe;
     }, [navigation]);
 
     const fetchData = async () => {
