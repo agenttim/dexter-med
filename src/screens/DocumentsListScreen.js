@@ -48,7 +48,7 @@ export const DocumentsListScreen = ({navigation}) => {
                                                              onPress={() => openDocumentHandler(item)}/>}
                 />
             ) : (
-                <ActivityIndicator size="large" color="blue"/>
+                <ActivityIndicator size="large" color={THEME.MAIN_COLOR}/>
             )}
             <View style={styles.buttonContainer}>
                 <TouchableOpacity
