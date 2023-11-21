@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {View, Text, StyleSheet, ScrollView, FlatList, Button, TouchableOpacity} from 'react-native';
+import {View, Text, StyleSheet, ScrollView, FlatList, Button, TouchableOpacity, ActivityIndicator} from 'react-native';
 import {MedicalDocument} from "../components/MedicalDocument";
 import {Feather, Ionicons} from "@expo/vector-icons";
 import {THEME} from "../theme";
@@ -21,6 +21,7 @@ export const DocumentsListScreen = ({navigation}) => {
 
     const fetchData = async () => {
         try {
+            await new Promise(resolve => setTimeout(resolve, 2000));
             const response = await fetch('https://dexter-med-34099-default-rtdb.firebaseio.com/medical-documents.json'); // Replace with your API endpoint
             const result = await response.json();
             const documentsArray = Object.values(result);
@@ -40,16 +41,21 @@ export const DocumentsListScreen = ({navigation}) => {
 
     return (
         <View style={styles.screenStyle}>
-            <FlatList
-                data={data}
-                renderItem={({item}) => <MedicalDocument document={item} onPress={() => openDocumentHandler(item)}/>}
-            />
+            {(data.length > 0) ? (
+                <FlatList
+                    data={data}
+                    renderItem={({item}) => <MedicalDocument document={item}
+                                                             onPress={() => openDocumentHandler(item)}/>}
+                />
+            ) : (
+                <ActivityIndicator size="large" color="blue"/>
+            )}
             <View style={styles.buttonContainer}>
                 <TouchableOpacity
                     style={styles.roundButton}
                     onPress={newDocumentHandler}
                 >
-                    <Feather name="plus" size={25} color="white" />
+                    <Feather name="plus" size={25} color="white"/>
                 </TouchableOpacity>
             </View>
         </View>
@@ -60,6 +66,7 @@ const styles = StyleSheet.create({
     screenStyle: {
         padding: 10,
         flex: 1,
+        justifyContent: "center"
     },
     roundButton: {
         borderRadius: 25,

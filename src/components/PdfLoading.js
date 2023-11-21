@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {View, Text, Button, StyleSheet} from 'react-native';
+import {View, Text, Button, StyleSheet, ActivityIndicator} from 'react-native';
 import DocumentPicker from 'react-native-document-picker';
 import Pdf from 'react-native-pdf';
 import RNFS from 'react-native-fs';
@@ -120,13 +120,13 @@ export const PdfLoading = ({onPdfUrl}) => {
             <View style={styles.button}>
                 <Button title="Выбрать PDF" onPress={pickDocument}/>
             </View>
-            {pdfUri && (
+            {(pdfUri && uploadProgress === 0) && (
+                <ActivityIndicator size="large" color="#0000ff" />
+            )}
+            {uploadProgress > 0 && (
                 <View style={styles.pdfWrapper}>
                     <Pdf source={{uri: pdfUri, cache: true}} style={styles.pdf}/>
                 </View>
-            )}
-            {uploadProgress > 0 && (
-                <Text>Прогресс загрузки: {uploadProgress.toFixed(2)}%</Text>
             )}
         </View>
     );
