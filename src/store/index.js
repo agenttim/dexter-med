@@ -1,8 +1,8 @@
 import {combineReducers, createStore} from "redux";
-import {medicalDocumentReducer} from "./reducers/medicalDocument";
+import {medicalDocumentReducer} from "./reducers/medicalDocumentReducer";
 
 const rootReducer = combineReducers({
-    medicalDocument: medicalDocumentReducer
+    medicalDocuments: medicalDocumentReducer
 })
 
 export default createStore(rootReducer)

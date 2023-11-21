@@ -3,31 +3,38 @@ import {View, Text, StyleSheet, ScrollView, FlatList, Button, TouchableOpacity, 
 import {MedicalDocument} from "../components/MedicalDocument";
 import {Feather, Ionicons} from "@expo/vector-icons";
 import {THEME} from "../theme";
+import {useDispatch, useSelector} from "react-redux";
+import {fetchMedDocFailure, fetchMedDocRequest, fetchMedDocSuccess} from "../store/actions/medicalDocumentAction";
 
 
 export const DocumentsListScreen = ({navigation}) => {
 
-    const [data, setData] = useState([]);
+    //const [data, setData] = useState([]);
+    const dispatch = useDispatch()
+    const {documents, loading, error} = useSelector(state => state.medicalDocuments)
 
     useEffect(() => {
         const unsubscribe = navigation.addListener('focus', () => {
-            // Fetch data when the screen comes into focus
             fetchData();
         });
 
-        // Clean up the listener when the component unmounts
         return unsubscribe;
     }, [navigation]);
 
     const fetchData = async () => {
         try {
+            dispatch(fetchMedDocRequest());
+
             await new Promise(resolve => setTimeout(resolve, 2000));
-            const response = await fetch('https://dexter-med-34099-default-rtdb.firebaseio.com/medical-documents.json'); // Replace with your API endpoint
+
+            const response = await fetch('https://dexter-med-34099-default-rtdb.firebaseio.com/medical-documents.json');
             const result = await response.json();
             const documentsArray = Object.values(result);
-            setData(documentsArray);
+
+            dispatch(fetchMedDocSuccess(documentsArray))
         } catch (error) {
             console.error('Error fetching data:', error);
+            dispatch(fetchMedDocFailure(error))
         }
     };
 
@@ -41,15 +48,22 @@ export const DocumentsListScreen = ({navigation}) => {
 
     return (
         <View style={styles.screenStyle}>
-            {(data.length > 0) ? (
-                <FlatList
-                    data={data}
-                    renderItem={({item}) => <MedicalDocument document={item}
-                                                             onPress={() => openDocumentHandler(item)}/>}
-                />
-            ) : (
+            {loading ? (
                 <ActivityIndicator size="large" color={THEME.MAIN_COLOR}/>
+            ) : error ? (
+                <Text>Error loading data: {error}</Text>
+            ) : (
+                <View>
+                    <FlatList
+                        data={documents}
+                        renderItem={({item}) => <MedicalDocument
+                            document={item}
+                            onPress={() => openDocumentHandler(item)}/>}
+                    />
+                </View>
+
             )}
+
             <View style={styles.buttonContainer}>
                 <TouchableOpacity
                     style={styles.roundButton}
