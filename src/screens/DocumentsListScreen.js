@@ -9,7 +9,6 @@ import {fetchMedDocFailure, fetchMedDocRequest, fetchMedDocSuccess} from "../sto
 
 export const DocumentsListScreen = ({navigation}) => {
 
-    //const [data, setData] = useState([]);
     const dispatch = useDispatch()
     const {documents, loading, error} = useSelector(state => state.medicalDocuments)
 
