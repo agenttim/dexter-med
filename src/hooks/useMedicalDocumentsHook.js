@@ -18,7 +18,7 @@ export const useMedicalDocumentsHook = () => {
                 'https://dexter-med-34099-default-rtdb.firebaseio.com/medical-documents.json'
             );
             const result = await response.json();
-            const documentsArray = Object.values(result);
+            const documentsArray = Object.entries(result).map(([id, data]) => ({ id, ...data }));
 
             dispatch(fetchMedDocSuccess(documentsArray));
         } catch (error) {
