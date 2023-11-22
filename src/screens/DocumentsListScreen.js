@@ -4,38 +4,23 @@ import {MedicalDocument} from "../components/MedicalDocument";
 import {Feather, Ionicons} from "@expo/vector-icons";
 import {THEME} from "../theme";
 import {useDispatch, useSelector} from "react-redux";
-import {fetchMedDocFailure, fetchMedDocRequest, fetchMedDocSuccess} from "../store/actions/medicalDocumentAction";
+import {useMedicalDocumentsHook} from "../hooks/useMedicalDocumentsHook";
 
 
 export const DocumentsListScreen = ({navigation}) => {
 
     const dispatch = useDispatch()
     const {documents, loading, error} = useSelector(state => state.medicalDocuments)
+    const {fetchData} = useMedicalDocumentsHook();
+
 
     useEffect(() => {
         const unsubscribe = navigation.addListener('focus', () => {
-            fetchData();
+            fetchData()
         });
 
         return unsubscribe;
     }, [navigation]);
-
-    const fetchData = async () => {
-        try {
-            dispatch(fetchMedDocRequest());
-
-            await new Promise(resolve => setTimeout(resolve, 2000));
-
-            const response = await fetch('https://dexter-med-34099-default-rtdb.firebaseio.com/medical-documents.json');
-            const result = await response.json();
-            const documentsArray = Object.values(result);
-
-            dispatch(fetchMedDocSuccess(documentsArray))
-        } catch (error) {
-            console.error('Error fetching data:', error);
-            dispatch(fetchMedDocFailure(error))
-        }
-    };
 
     const openDocumentHandler = (document) => {
         navigation.navigate('DocumentCard', {document})
