@@ -1,14 +1,16 @@
 import React, {useEffect} from 'react';
-import {View, Text, StyleSheet, Dimensions, Image, TouchableOpacity} from 'react-native';
+import {View, Text, StyleSheet, Dimensions, Image, TouchableOpacity, Alert} from 'react-native';
 import Pdf from "react-native-pdf";
 import {useDispatch} from "react-redux";
 import {resetTabScreenDocumentsOptions, setTabScreenDocumentsOptions} from "../store/actions/navigationAction";
 import {Feather} from "@expo/vector-icons";
 import {THEME} from "../theme";
+import {useMedicalDocumentsHook} from "../hooks/useMedicalDocumentsHook";
 
-export const DocumentCardScreen = ({route}) => {
+export const DocumentCardScreen = ({route, navigation}) => {
     const {document} = route.params
     const dispatch = useDispatch();
+    const {deleteDocument} = useMedicalDocumentsHook();
 
     useEffect(() => {
         async function loadPdf() {
@@ -39,12 +41,29 @@ export const DocumentCardScreen = ({route}) => {
         )
     }
 
-    function deleteDocumentHandler() {
+    function editDocumentHandler() {
 
     }
 
-    function editDocumentHandler() {
-
+    function deleteDocumentHandler(id) {
+        Alert.alert(
+            'Подтверждение удаления',
+            'Вы уверены, что хотите удалить этот документ?',
+            [
+                {
+                    text: 'Отмена',
+                    style: 'cancel',
+                },
+                {
+                    text: 'Удалить',
+                    onPress: async () => {
+                        deleteDocument(id);
+                        navigation.navigate('DocumentsList');
+                    },
+                },
+            ],
+            { cancelable: false }
+        );
     }
 
     return (
@@ -59,12 +78,12 @@ export const DocumentCardScreen = ({route}) => {
             />
             <View style={styles.buttonEditContainer}>
                 <TouchableOpacity style={styles.roundEditButton} onPress={editDocumentHandler}>
-                    <Feather name="edit" size={25} color="white" />
+                    <Feather name="edit" size={25} color="white"/>
                 </TouchableOpacity>
             </View>
             <View style={styles.buttonDeleteContainer}>
-                <TouchableOpacity style={styles.roundDeleteButton} onPress={deleteDocumentHandler}>
-                    <Feather name="trash-2" size={25} color="white" />
+                <TouchableOpacity style={styles.roundDeleteButton} onPress={() => deleteDocumentHandler(document.id)}>
+                    <Feather name="trash-2" size={25} color="white"/>
                 </TouchableOpacity>
             </View>
         </View>
