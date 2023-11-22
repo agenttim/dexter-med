@@ -1,8 +1,10 @@
 import React, {useEffect} from 'react';
-import {View, Text, StyleSheet, Dimensions, Image} from 'react-native';
+import {View, Text, StyleSheet, Dimensions, Image, TouchableOpacity} from 'react-native';
 import Pdf from "react-native-pdf";
 import {useDispatch} from "react-redux";
 import {resetTabScreenDocumentsOptions, setTabScreenDocumentsOptions} from "../store/actions/navigationAction";
+import {Feather} from "@expo/vector-icons";
+import {THEME} from "../theme";
 
 export const DocumentCardScreen = ({route}) => {
     const {document} = route.params
@@ -37,6 +39,14 @@ export const DocumentCardScreen = ({route}) => {
         )
     }
 
+    function deleteDocumentHandler() {
+
+    }
+
+    function editDocumentHandler() {
+
+    }
+
     return (
         <View style={styles.screenStyle}>
             <Pdf
@@ -47,6 +57,16 @@ export const DocumentCardScreen = ({route}) => {
                     console.log(`number of pages: ${numberOfPages}`);
                 }}
             />
+            <View style={styles.buttonEditContainer}>
+                <TouchableOpacity style={styles.roundEditButton} onPress={editDocumentHandler}>
+                    <Feather name="edit" size={25} color="white" />
+                </TouchableOpacity>
+            </View>
+            <View style={styles.buttonDeleteContainer}>
+                <TouchableOpacity style={styles.roundDeleteButton} onPress={deleteDocumentHandler}>
+                    <Feather name="trash-2" size={25} color="white" />
+                </TouchableOpacity>
+            </View>
         </View>
     )
 }
@@ -61,5 +81,31 @@ const styles = StyleSheet.create({
         flex: 1,
         width: Dimensions.get('window').width,
         height: Dimensions.get('window').height,
-    }
+    },
+    roundDeleteButton: {
+        borderRadius: 25,
+        width: 50,
+        height: 50,
+        backgroundColor: THEME.DANGER_COLOR,
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    roundEditButton: {
+        borderRadius: 25,
+        width: 50,
+        height: 50,
+        backgroundColor: THEME.MAIN_COLOR,
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    buttonDeleteContainer: {
+        position: 'absolute',
+        bottom: 20,
+        right: 20
+    },
+    buttonEditContainer: {
+        position: 'absolute',
+        bottom: 100,
+        right: 20
+    },
 });
