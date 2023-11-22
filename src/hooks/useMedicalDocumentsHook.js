@@ -14,8 +14,6 @@ export const useMedicalDocumentsHook = () => {
         try {
             dispatch(fetchMedDocRequest());
 
-            await new Promise((resolve) => setTimeout(resolve, 2000));
-
             const response = await fetch(
                 'https://dexter-med-34099-default-rtdb.firebaseio.com/medical-documents.json'
             );
