@@ -37,7 +37,7 @@ export const DocumentsListScreen = ({navigation}) => {
             ) : error ? (
                 <Text>Error loading data: {error}</Text>
             ) : (
-                <View>
+                <View style={styles.flatListWrapper}>
                     <FlatList
                         data={documents}
                         renderItem={({item}) => <MedicalDocument
@@ -79,4 +79,7 @@ const styles = StyleSheet.create({
         bottom: 20,
         right: 20
     },
+    flatListWrapper: {
+        flex: 1
+    }
 })
