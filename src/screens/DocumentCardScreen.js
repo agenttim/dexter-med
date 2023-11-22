@@ -1,25 +1,30 @@
 import React, {useEffect} from 'react';
 import {View, Text, StyleSheet, Dimensions, Image} from 'react-native';
 import Pdf from "react-native-pdf";
+import {useDispatch} from "react-redux";
+import {resetTabScreenDocumentsOptions, setTabScreenDocumentsOptions} from "../store/actions/navigationAction";
 
 export const DocumentCardScreen = ({route}) => {
     const {document} = route.params
+    const dispatch = useDispatch();
 
     useEffect(() => {
         async function loadPdf() {
             try {
-                // Замените этот URL на актуальный адрес вашего PDF-файла
                 const pdfUrl = document.file;
-
-                const pdfFile = { uri: pdfUrl, cache: true };
-
+                const pdfFile = {uri: pdfUrl, cache: true};
                 setPdfSource(pdfFile);
+                dispatch(setTabScreenDocumentsOptions());
             } catch (error) {
                 console.error('Ошибка загрузки PDF:', error);
             }
         }
 
         loadPdf();
+
+        return () => {
+            dispatch(resetTabScreenDocumentsOptions())
+        }
     }, []);
 
     const [pdfSource, setPdfSource] = React.useState(null);

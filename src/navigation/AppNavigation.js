@@ -10,6 +10,7 @@ import {LaboratoryTestsScreen} from "../screens/LaboratoryTestsScreen";
 import {createNativeStackNavigator} from "@react-navigation/native-stack";
 import {DocumentCardScreen} from "../screens/DocumentCardScreen";
 import {NewDocumentCardScreen} from "../screens/NewDocumentCardScreen";
+import {useSelector} from "react-redux";
 
 
 const Tab = createBottomTabNavigator();
@@ -17,6 +18,8 @@ const Documents = createNativeStackNavigator();
 
 
 export const AppNavigation = ({}) => {
+    const tabScreenOptions = useSelector(state => state.navigation.tabScreenOptions);
+
     return (
         <NavigationContainer>
             <Tab.Navigator
@@ -62,13 +65,7 @@ export const AppNavigation = ({}) => {
                 <Tab.Screen
                     name="Documents"
                     component={DocumentsNavigator}
-                    options={{
-                        tabBarLabel: "Медкарта",
-                        headerTitle: "Ваши медицинские документы",
-                        tabBarIcon: ({color}) => (
-                            <Feather name="book" size={25} color={color}/>
-                        )
-                    }}
+                    options={tabScreenOptions}
                 />
                 <Tab.Screen
                     name="Profile"
