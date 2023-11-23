@@ -66,7 +66,7 @@ export const NewDocumentCardScreen = ({navigation}) => {
                 onChangeText={setDescription}
             />
 
-            <DateSelection onSelectedDate={setDate}/>
+            <DateSelection onSelectedDate={setDate} initialDate={date}/>
 
             <PdfLoading onPdfUrl={setPdfUrl}/>
 
