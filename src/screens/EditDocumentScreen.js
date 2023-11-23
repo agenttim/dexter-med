@@ -1,9 +1,7 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import {View, Text, TextInput, Button, StyleSheet, SafeAreaView, TouchableOpacity} from 'react-native';
-import DateTimePicker from '@react-native-community/datetimepicker';
 import {THEME} from "../theme";
 import {DateSelection} from "../components/DateSelection";
-import {PdfLoading} from "../components/PdfLoading";
 import {useMedicalDocumentsHook} from "../hooks/useMedicalDocumentsHook";
 
 
@@ -32,7 +30,7 @@ export const EditDocumentCardScreen = ({navigation, route}) => {
 
     return (
         <View style={styles.container}>
-            <Text>Изменить существующий документ</Text>
+            <Text style={{fontFamily: 'open-regular', fontSize: 15, color: THEME.MAIN_COLOR}}>Изменить существующий документ</Text>
 
             <TextInput
                 style={styles.input}
@@ -85,7 +83,7 @@ const styles = StyleSheet.create({
     buttonText: {
         color: THEME.MAIN_COLOR,
         textAlign: 'center',
-        fontSize: 17
+        fontSize: 17,
+        fontFamily: 'open-regular',
     },
-
 })
