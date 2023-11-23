@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {View, Text, TextInput, Button, StyleSheet, SafeAreaView} from 'react-native';
+import {View, Text, TextInput, Button, StyleSheet, SafeAreaView, TouchableOpacity} from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import {THEME} from "../theme";
 import {DateSelection} from "../components/DateSelection";
@@ -9,7 +9,7 @@ import {useMedicalDocumentsHook} from "../hooks/useMedicalDocumentsHook";
 
 export const EditDocumentCardScreen = ({navigation, route}) => {
     const {document} = route.params
-    const { editDocument } = useMedicalDocumentsHook()
+    const {editDocument} = useMedicalDocumentsHook()
 
     const [title, setTitle] = useState(document.title);
     const [description, setDescription] = useState(document.description);
@@ -48,9 +48,14 @@ export const EditDocumentCardScreen = ({navigation, route}) => {
                 onChangeText={setDescription}
             />
 
-            <DateSelection onSelectedDate={setDate} initialDate={date} />
+            <DateSelection onSelectedDate={setDate} initialDate={date}/>
 
-            <Button title="Изменить документ" onPress={updateDocument} color={THEME.MAIN_COLOR}/>
+            <TouchableOpacity
+                style={styles.button}
+                onPress={updateDocument}
+            >
+                <Text style={styles.buttonText}>Изменить документ</Text>
+            </TouchableOpacity>
 
         </View>
     );
@@ -61,15 +66,26 @@ const styles = StyleSheet.create({
         flex: 1,
         padding: 20
     },
-    button: {
-        marginVertical: 15
-    },
     input: {
         paddingVertical: 10,
         paddingHorizontal: 5,
         marginVertical: 5,
         borderWidth: 1,
         borderColor: THEME.INACTIVE_COLOR
+    },
+    button: {
+        marginTop: 15,
+        paddingVertical: 10,
+        paddingHorizontal: 20,
+        backgroundColor: 'transparent',
+        borderColor: THEME.MAIN_COLOR,
+        borderWidth: 1,
+        borderRadius: 10,
+    },
+    buttonText: {
+        color: THEME.MAIN_COLOR,
+        textAlign: 'center',
+        fontSize: 17
     },
 
 })
