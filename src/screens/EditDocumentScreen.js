@@ -32,7 +32,7 @@ export const EditDocumentCardScreen = ({navigation, route}) => {
 
     return (
         <View style={styles.container}>
-            <Text>Добавить новый документ</Text>
+            <Text>Изменить существующий документ</Text>
 
             <TextInput
                 style={styles.input}

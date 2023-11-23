@@ -6,6 +6,7 @@ import {resetTabScreenDocumentsOptions, setTabScreenDocumentsOptions} from "../s
 import {Feather} from "@expo/vector-icons";
 import {THEME} from "../theme";
 import {useMedicalDocumentsHook} from "../hooks/useMedicalDocumentsHook";
+import {useFocusEffect} from "@react-navigation/native";
 
 export const DocumentCardScreen = ({route, navigation}) => {
     const {document} = route.params
@@ -30,6 +31,14 @@ export const DocumentCardScreen = ({route, navigation}) => {
             dispatch(resetTabScreenDocumentsOptions())
         }
     }, []);
+
+    useFocusEffect(
+        React.useCallback(() => {
+            return () => {
+                dispatch(resetTabScreenDocumentsOptions());
+            };
+        }, [])
+    );
 
     const [pdfSource, setPdfSource] = React.useState(null);
 
