@@ -30,7 +30,7 @@ export const EditDocumentCardScreen = ({navigation, route}) => {
 
     return (
         <View style={styles.container}>
-            <Text style={{fontFamily: 'open-regular', fontSize: 15, color: THEME.MAIN_COLOR}}>Изменить существующий документ</Text>
+            <Text style={{fontFamily: 'open-regular', fontSize: 15, marginBottom: 5}}>Изменить существующий документ:</Text>
 
             <TextInput
                 style={styles.input}
@@ -62,17 +62,19 @@ export const EditDocumentCardScreen = ({navigation, route}) => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        padding: 20
+        paddingHorizontal: 20,
+        paddingVertical: 15
     },
     input: {
         paddingVertical: 10,
-        paddingHorizontal: 5,
+        paddingHorizontal: 10,
         marginVertical: 5,
         borderWidth: 1,
-        borderColor: THEME.INACTIVE_COLOR
+        borderColor: THEME.INACTIVE_COLOR,
+        fontFamily: 'open-regular'
     },
     button: {
-        marginTop: 15,
+        marginTop: 5,
         paddingVertical: 10,
         paddingHorizontal: 20,
         backgroundColor: 'transparent',
