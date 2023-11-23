@@ -38,7 +38,6 @@ export const useMedicalDocumentsHook = () => {
 
     const editDocument = async (id, newData) => {
         try {
-            // Отправляем запрос на обновление данных медицинского документа по его идентификатору
             await fetch(`https://dexter-med-34099-default-rtdb.firebaseio.com/medical-documents/${id}.json`, {
                 method: 'PATCH',  // Используем метод PATCH для частичного обновления данных
                 headers: {
@@ -46,16 +45,10 @@ export const useMedicalDocumentsHook = () => {
                 },
                 body: JSON.stringify(newData),  // Отправляем новые данные в формате JSON
             });
-
-            // Если успешно, обновляем хранилище Redux
-            const updatedDocuments = documents.map(doc => (doc.id === id ? { ...doc, ...newData } : doc));
-            dispatch(fetchMedDocSuccess(updatedDocuments));
         } catch (error) {
             console.error('Error editing document:', error);
-            dispatch(fetchMedDocFailure(error));
         }
     }
-
 
     return {documents, loading, error, fetchData, deleteDocument, editDocument};
 };
