@@ -11,6 +11,7 @@ import {createNativeStackNavigator} from "@react-navigation/native-stack";
 import {DocumentCardScreen} from "../screens/DocumentCardScreen";
 import {NewDocumentCardScreen} from "../screens/NewDocumentCardScreen";
 import {useSelector} from "react-redux";
+import {EditDocumentCardScreen} from "../screens/EditDocumentScreen";
 
 
 const Tab = createBottomTabNavigator();
@@ -99,6 +100,11 @@ function DocumentsNavigator() {
             <Documents.Screen
                 name="NewDocumentCard"
                 component={NewDocumentCardScreen}
+                options={{headerShown: false}}
+            />
+            <Documents.Screen
+                name="EditDocumentCard"
+                component={EditDocumentCardScreen}
                 options={{headerShown: false}}
             />
         </Documents.Navigator>

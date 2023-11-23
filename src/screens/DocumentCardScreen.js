@@ -42,7 +42,7 @@ export const DocumentCardScreen = ({route, navigation}) => {
     }
 
     function editDocumentHandler() {
-
+        navigation.navigate('EditDocumentCard', {document})
     }
 
     function deleteDocumentHandler(id) {
