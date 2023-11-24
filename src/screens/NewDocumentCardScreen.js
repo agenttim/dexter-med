@@ -90,9 +90,9 @@ const styles = StyleSheet.create({
         marginTop: 5,
         paddingVertical: 10,
         paddingHorizontal: 20,
-        backgroundColor: 'transparent',
+        backgroundColor: THEME.BUTTON_BACKGROUND,
         borderColor: THEME.MAIN_COLOR,
-        borderWidth: 1,
+        borderWidth: 2,
         borderRadius: 10,
     },
     buttonText: {

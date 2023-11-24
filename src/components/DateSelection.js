@@ -20,8 +20,8 @@ export const DateSelection = ({onSelectedDate, initialDate}) => {
 
     return (
         <View style={styles.dateWrapper}>
-            <TouchableOpacity onPress={showDatepicker}>
-                <Text style={{marginHorizontal: 10, marginVertical: 10, fontFamily: 'open-regular', fontSize: 16, color: THEME.MAIN_COLOR}}>
+            <TouchableOpacity onPress={showDatepicker} style={{flex: 1, alignItems: 'center'}}>
+                <Text style={{marginVertical: 10, fontFamily: 'open-regular', fontSize: 16}}>
                     {date.toLocaleDateString(
                         'ru-RU', {
                             day: 'numeric',
@@ -38,11 +38,14 @@ export const DateSelection = ({onSelectedDate, initialDate}) => {
 
 const styles = StyleSheet.create({
     dateWrapper: {
-        //borderWidth: 1,
-        //borderColor: THEME.INACTIVE_COLOR,
+        alignSelf: 'center',
+        borderWidth: 1,
+        borderColor: THEME.MAIN_COLOR,
         flexDirection: "row",
         justifyContent: "center",
         alignItems: "center",
-        marginVertical: 5
+        marginVertical: 5,
+        borderRadius: 25,
+        width: '75%'
     }
 })
