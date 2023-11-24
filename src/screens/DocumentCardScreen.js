@@ -81,6 +81,7 @@ export const DocumentCardScreen = ({route, navigation}) => {
                 source={pdfSource}
                 style={styles.pdf}
                 trustAllCerts={false}
+                renderActivityIndicator={() => <Text style={{fontFamily: 'open-regular'}}>Pdf файл отсутствует</Text>}
             />
             <View style={styles.buttonEditContainer}>
                 <TouchableOpacity style={styles.roundEditButton} onPress={editDocumentHandler}>

@@ -118,21 +118,25 @@ export const PdfLoading = ({onPdfUrl}) => {
 
     return (
         <View style={styles.container}>
-            <Text style={{fontFamily: 'open-regular', fontSize: 15, marginBottom: 5}}>Выберите pdf файл для
-                загрузки</Text>
-            <View style={styles.buttonEditContainer}>
+            <View style={styles.buttonContainer}>
                 <TouchableOpacity style={styles.roundButton} onPress={pickDocument}>
-                    <Feather name="edit" size={25} color="white"/>
+                    <Feather name="download" size={25} color="white"/>
                 </TouchableOpacity>
             </View>
             {(pdfUri && uploadProgress === 0) && (
-                <ActivityIndicator size="large" color="#0000ff"/>
-            )}
-            {uploadProgress > 0 && (
-                <View style={styles.pdfWrapper}>
-                    <Pdf source={{uri: pdfUri, cache: true}} style={styles.pdf}/>
+                <View style={styles.loadingContainer}>
+                    <ActivityIndicator size="large" color="#0000ff"/>
                 </View>
             )}
+
+            <View style={styles.pdfWrapper}>
+                <Pdf
+                    source={{uri: pdfUri, cache: true}}
+                    style={styles.pdf}
+                    renderActivityIndicator={() => <Text style={{fontFamily: 'open-regular'}}>Выберите pdf файл для
+                        загрузки</Text>}
+                />
+            </View>
         </View>
     );
 };
@@ -142,17 +146,15 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        marginBottom: 10,
+        marginVertical: 10,
     },
     pdf: {
         flex: 1,
     },
     pdfWrapper: {
-        flex: 1,
-        width: '100%',
+        ...StyleSheet.absoluteFillObject,
         borderWidth: 1,
-        borderColor: THEME.INACTIVE_COLOR,
-        marginVertical: 20,
+        borderColor: THEME.INACTIVE_COLOR
     },
     roundButton: {
         borderRadius: 25,
@@ -160,6 +162,18 @@ const styles = StyleSheet.create({
         height: 50,
         backgroundColor: THEME.MAIN_COLOR,
         justifyContent: 'center',
-        alignItems: 'center'
-    }
+        alignItems: 'center',
+        zIndex: 1
+    },
+    buttonContainer: {
+        position: 'absolute',
+        bottom: 10,
+        right: 10,
+    },
+    loadingContainer: {
+        ...StyleSheet.absoluteFillObject,
+        justifyContent: 'center',
+        alignItems: 'center',
+        zIndex: 1
+    },
 });
