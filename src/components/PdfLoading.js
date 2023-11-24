@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {View, Text, Button, StyleSheet, ActivityIndicator} from 'react-native';
+import {View, Text, Button, StyleSheet, ActivityIndicator, TouchableOpacity} from 'react-native';
 import DocumentPicker from 'react-native-document-picker';
 import Pdf from 'react-native-pdf';
 import RNFS from 'react-native-fs';
@@ -7,6 +7,8 @@ import {check, PERMISSIONS, request, RESULTS} from 'react-native-permissions';
 import {firebase} from '@react-native-firebase/app';
 import storage from '@react-native-firebase/storage';
 import firebaseConfig from '../firebaseConfig';
+import {THEME} from "../theme";
+import {Feather} from "@expo/vector-icons";
 
 if (!firebase.apps.length) {
     firebase.initializeApp(firebaseConfig);
@@ -116,12 +118,15 @@ export const PdfLoading = ({onPdfUrl}) => {
 
     return (
         <View style={styles.container}>
-            <Text>Загрузка PDF</Text>
-            <View style={styles.button}>
-                <Button title="Выбрать PDF" onPress={pickDocument}/>
+            <Text style={{fontFamily: 'open-regular', fontSize: 15, marginBottom: 5}}>Выберите pdf файл для
+                загрузки</Text>
+            <View style={styles.buttonEditContainer}>
+                <TouchableOpacity style={styles.roundButton} onPress={pickDocument}>
+                    <Feather name="edit" size={25} color="white"/>
+                </TouchableOpacity>
             </View>
             {(pdfUri && uploadProgress === 0) && (
-                <ActivityIndicator size="large" color="#0000ff" />
+                <ActivityIndicator size="large" color="#0000ff"/>
             )}
             {uploadProgress > 0 && (
                 <View style={styles.pdfWrapper}>
@@ -146,11 +151,15 @@ const styles = StyleSheet.create({
         flex: 1,
         width: '100%',
         borderWidth: 1,
-        borderColor: 'gray',
+        borderColor: THEME.INACTIVE_COLOR,
         marginVertical: 20,
     },
-    button: {
-        width: '100%',
-        marginTop: 10,
-    },
+    roundButton: {
+        borderRadius: 25,
+        width: 50,
+        height: 50,
+        backgroundColor: THEME.MAIN_COLOR,
+        justifyContent: 'center',
+        alignItems: 'center'
+    }
 });

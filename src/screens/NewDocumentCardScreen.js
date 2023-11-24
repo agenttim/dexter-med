@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {View, Text, TextInput, Button, StyleSheet, SafeAreaView} from 'react-native';
+import {View, Text, TextInput, Button, StyleSheet, SafeAreaView, Alert, TouchableOpacity} from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import {THEME} from "../theme";
 import {DateSelection} from "../components/DateSelection";
@@ -12,7 +12,6 @@ export const NewDocumentCardScreen = ({navigation}) => {
     const [description, setDescription] = useState('');
     const [date, setDate] = useState(new Date());
     const [pdfUrl, setPdfUrl] = useState(null);
-
 
 
     const addDocument = async () => {
@@ -34,7 +33,7 @@ export const NewDocumentCardScreen = ({navigation}) => {
             })
 
             if (response.ok) {
-                alert('Медицинский документ успешно добавлен!');
+                Alert.alert('Добавление нового документа', 'Новый документ успешно добавлен!');
                 console.log(document)
                 setTitle('');
                 setDescription('');
@@ -50,7 +49,7 @@ export const NewDocumentCardScreen = ({navigation}) => {
 
     return (
         <View style={styles.container}>
-            <Text>Добавить новый документ</Text>
+            <Text style={{fontFamily: 'open-regular', fontSize: 15, marginBottom: 5}}>Добавить новый документ:</Text>
 
             <TextInput
                 style={styles.input}
@@ -70,7 +69,12 @@ export const NewDocumentCardScreen = ({navigation}) => {
 
             <PdfLoading onPdfUrl={setPdfUrl}/>
 
-            <Button title="Добавить новую запись" onPress={addDocument} color={THEME.MAIN_COLOR}/>
+            <TouchableOpacity
+                style={styles.button}
+                onPress={addDocument}
+            >
+                <Text style={styles.buttonText}>Добавить новую запись</Text>
+            </TouchableOpacity>
 
         </View>
     );
@@ -79,17 +83,31 @@ export const NewDocumentCardScreen = ({navigation}) => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        padding: 20
+        paddingHorizontal: 20,
+        paddingVertical: 15
     },
     button: {
-        marginVertical: 15
+        marginTop: 5,
+        paddingVertical: 10,
+        paddingHorizontal: 20,
+        backgroundColor: 'transparent',
+        borderColor: THEME.MAIN_COLOR,
+        borderWidth: 1,
+        borderRadius: 10,
+    },
+    buttonText: {
+        color: THEME.MAIN_COLOR,
+        textAlign: 'center',
+        fontSize: 17,
+        fontFamily: 'open-regular',
     },
     input: {
         paddingVertical: 10,
-        paddingHorizontal: 5,
+        paddingHorizontal: 10,
         marginVertical: 5,
         borderWidth: 1,
-        borderColor: THEME.INACTIVE_COLOR
+        borderColor: THEME.INACTIVE_COLOR,
+        fontFamily: 'open-regular',
     },
 
 })
