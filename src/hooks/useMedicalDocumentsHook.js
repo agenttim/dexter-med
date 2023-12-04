@@ -4,6 +4,8 @@ import {
     fetchMedDocRequest,
     fetchMedDocSuccess,
 } from '../store/actions/medicalDocumentAction';
+import { API_URL } from '../globalConfig';
+
 
 export const useMedicalDocumentsHook = () => {
     const dispatch = useDispatch();
@@ -14,7 +16,7 @@ export const useMedicalDocumentsHook = () => {
             dispatch(fetchMedDocRequest());
 
             const response = await fetch(
-                'http://192.168.107.174:8080/api/medical-documents'
+                `${API_URL}/medical-documents`
             );
             const result = await response.json();
             const documentsArray = Object.entries(result).map(([id, data]) => ({id, ...data}));
@@ -29,7 +31,7 @@ export const useMedicalDocumentsHook = () => {
 
     const deleteDocument = async (id) => {
         try {
-            await fetch(`https://dexter-med-34099-default-rtdb.firebaseio.com/medical-documents/${id}.json`, {
+            await fetch(`${API_URL}/medical-documents/${id}`, {
                 method: 'DELETE',
             })
         } catch (error) {
