@@ -8,10 +8,10 @@ export const MedicalDocument = ({document, onPress}) => {
             style={styles.componentStyle}
             onPress={onPress}
         >
-            <Text>{document.title}</Text>
-            <Text>{document.description}</Text>
+            <Text>{document.documentName}</Text>
+            <Text>{document.documentDescription}</Text>
             <Text>
-                {new Date(document.date)
+                {new Date(document.documentDate)
                     .toLocaleDateString('ru', {separator: '.'})}
             </Text>
         </TouchableOpacity>

@@ -14,10 +14,11 @@ export const useMedicalDocumentsHook = () => {
             dispatch(fetchMedDocRequest());
 
             const response = await fetch(
-                'https://dexter-med-34099-default-rtdb.firebaseio.com/medical-documents.json'
+                'http://192.168.107.174:8080/api/medical-documents'
             );
             const result = await response.json();
             const documentsArray = Object.entries(result).map(([id, data]) => ({id, ...data}));
+            console.log(documentsArray)
 
             dispatch(fetchMedDocSuccess(documentsArray));
         } catch (error) {
