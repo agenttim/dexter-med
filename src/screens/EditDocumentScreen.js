@@ -9,15 +9,15 @@ export const EditDocumentCardScreen = ({navigation, route}) => {
     const {document} = route.params
     const {editDocument} = useMedicalDocumentsHook()
 
-    const [title, setTitle] = useState(document.title);
-    const [description, setDescription] = useState(document.description);
-    const [date, setDate] = useState(new Date(document.date));
+    const [title, setTitle] = useState(document.documentName);
+    const [description, setDescription] = useState(document.documentDescription);
+    const [date, setDate] = useState(new Date(document.documentDate));
 
     const updateDocument = async () => {
         const updatedDocumentData = {
-            title,
-            description,
-            date: date.toJSON()
+            documentName: title,
+            documentDescription: description,
+            documentDate: date.toJSON()
         };
 
         try {

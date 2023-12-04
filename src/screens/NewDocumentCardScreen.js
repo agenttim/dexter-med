@@ -4,6 +4,7 @@ import DateTimePicker from '@react-native-community/datetimepicker';
 import {THEME} from "../theme";
 import {DateSelection} from "../components/DateSelection";
 import {PdfLoading} from "../components/PdfLoading";
+import {API_URL} from "../globalConfig";
 
 
 export const NewDocumentCardScreen = ({navigation}) => {
@@ -17,14 +18,14 @@ export const NewDocumentCardScreen = ({navigation}) => {
     const addDocument = async () => {
 
         const document = {
-            title,
-            description,
-            date: date.toJSON(),
+            documentName: title,
+            documentDescription: description,
+            documentDate: date.toJSON(),
             file: pdfUrl
         }
 
         try {
-            const response = await fetch('https://dexter-med-34099-default-rtdb.firebaseio.com/medical-documents.json', {
+            const response = await fetch(`${API_URL}/medical-documents`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'

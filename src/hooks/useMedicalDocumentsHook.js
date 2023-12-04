@@ -41,12 +41,12 @@ export const useMedicalDocumentsHook = () => {
 
     const editDocument = async (id, newData) => {
         try {
-            await fetch(`https://dexter-med-34099-default-rtdb.firebaseio.com/medical-documents/${id}.json`, {
-                method: 'PATCH',  // Используем метод PATCH для частичного обновления данных
+            await fetch(`${API_URL}/medical-documents/${id}`, {
+                method: 'PATCH',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify(newData),  // Отправляем новые данные в формате JSON
+                body: JSON.stringify(newData),
             });
         } catch (error) {
             console.error('Error editing document:', error);
