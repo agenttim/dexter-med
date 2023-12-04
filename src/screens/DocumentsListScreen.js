@@ -22,6 +22,12 @@ export const DocumentsListScreen = ({navigation}) => {
         return unsubscribe;
     }, [navigation]);
 
+    // Сортировка документов по дате
+    const sortedDocuments = [...documents].sort((a, b) => {
+        return new Date(a.documentDate) - new Date(b.documentDate);
+    });
+
+
     const openDocumentHandler = (document) => {
         navigation.navigate('DocumentCard', {document})
     }
@@ -39,7 +45,7 @@ export const DocumentsListScreen = ({navigation}) => {
             ) : (
                 <View style={styles.flatListWrapper}>
                     <FlatList
-                        data={documents}
+                        data={sortedDocuments}
                         renderItem={({item}) => <MedicalDocument
                             document={item}
                             onPress={() => openDocumentHandler(item)}/>}
