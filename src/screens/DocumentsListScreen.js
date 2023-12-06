@@ -41,7 +41,9 @@ export const DocumentsListScreen = ({navigation}) => {
             {loading ? (
                 <ActivityIndicator size="large" color={THEME.MAIN_COLOR}/>
             ) : error ? (
-                <Text>Error loading data: {error}</Text>
+                <View style={styles.errorContainer}>
+                    <Text>Вам необходимо авторизоваться</Text>
+                </View>
             ) : (
                 <View style={styles.flatListWrapper}>
                     <FlatList
@@ -87,5 +89,11 @@ const styles = StyleSheet.create({
     },
     flatListWrapper: {
         flex: 1
+    },
+    errorContainer: {
+        alignItems: 'center'
+    },
+    errorText: {
+        color: 'red'
     }
 })
