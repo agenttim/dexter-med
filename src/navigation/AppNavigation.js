@@ -2,7 +2,7 @@ import React from 'react';
 import {NavigationContainer} from "@react-navigation/native";
 import {MainScreen} from "../screens/MainScreen";
 import {DocumentsListScreen} from "../screens/DocumentsListScreen";
-import {ProfileScreen} from "../screens/ProfileScreen";
+import {AuthProfileScreen, ProfileScreen} from "../screens/profile/AuthProfileScreen";
 import {createBottomTabNavigator} from "@react-navigation/bottom-tabs";
 import {Feather} from '@expo/vector-icons';
 import {THEME} from "../theme";
@@ -12,10 +12,13 @@ import {DocumentCardScreen} from "../screens/DocumentCardScreen";
 import {NewDocumentCardScreen} from "../screens/NewDocumentCardScreen";
 import {useSelector} from "react-redux";
 import {EditDocumentCardScreen} from "../screens/EditDocumentScreen";
+import {MainProfileScreen} from "../screens/profile/MainProfileScreen";
+import {AIScreen} from "../screens/AIScreen";
 
 
 const Tab = createBottomTabNavigator();
 const Documents = createNativeStackNavigator();
+const Profile = createNativeStackNavigator();
 
 
 export const AppNavigation = ({}) => {
@@ -64,13 +67,24 @@ export const AppNavigation = ({}) => {
                     }}
                 />
                 <Tab.Screen
+                    name="AI"
+                    component={AIScreen}
+                    options={{
+                        tabBarLabel: "ИИ",
+                        headerTitle: "ИИ доктор",
+                        tabBarIcon: ({color}) => (
+                            <Feather name="box" size={25} color={color}/>
+                        )
+                    }}
+                />
+                <Tab.Screen
                     name="Documents"
                     component={DocumentsNavigator}
                     options={tabScreenOptions}
                 />
                 <Tab.Screen
                     name="Profile"
-                    component={ProfileScreen}
+                    component={ProfileNavigator}
                     options={{
                         tabBarLabel: "Профиль",
                         headerTitle: "Настройки профиля",
@@ -108,5 +122,20 @@ function DocumentsNavigator() {
                 options={{headerShown: false}}
             />
         </Documents.Navigator>
+    )
+}
+
+function ProfileNavigator() {
+    return (
+        <Profile.Navigator>
+            <Profile.Screen
+                name="MainProfileScreen"
+                component={MainProfileScreen}
+            />
+            <Profile.Screen
+                name="AuthProfileScreen"
+                component={AuthProfileScreen}
+            />
+        </Profile.Navigator>
     )
 }
