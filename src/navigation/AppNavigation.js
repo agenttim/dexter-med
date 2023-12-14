@@ -71,7 +71,7 @@ export const AppNavigation = ({}) => {
                     component={AIScreen}
                     options={{
                         tabBarLabel: "ИИ",
-                        headerTitle: "ИИ доктор",
+                        headerTitle: "ИИ доктор Dexter",
                         tabBarIcon: ({color}) => (
                             <Feather name="box" size={25} color={color}/>
                         )
@@ -129,12 +129,14 @@ function ProfileNavigator() {
     return (
         <Profile.Navigator>
             <Profile.Screen
-                name="MainProfileScreen"
-                component={MainProfileScreen}
-            />
-            <Profile.Screen
                 name="AuthProfileScreen"
                 component={AuthProfileScreen}
+                options={{headerShown: false}}
+            />
+            <Profile.Screen
+                name="MainProfileScreen"
+                component={MainProfileScreen}
+                options={{headerShown: false}}
             />
         </Profile.Navigator>
     )

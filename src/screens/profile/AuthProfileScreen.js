@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, Button, StyleSheet } from 'react-native';
+import {setToken} from "../../store/actions/authActions";
+import {useDispatch, useSelector} from "react-redux";
 
 export const AuthProfileScreen = ({ navigation }) => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const dispatch = useDispatch();
 
     const handleLogin = async () => {
         // Убедимся, что поля не пустые
@@ -27,10 +30,10 @@ export const AuthProfileScreen = ({ navigation }) => {
                     const data = await response.json();
                     const token = data.token;
 
-                    // Можешь сохранить токен где-то, например, в AsyncStorage или Redux
-                    // И затем перейти на основной экран
-                    //navigation.navigate('Main');
+                    navigation.navigate('MainProfileScreen');
                     console.log(token)
+                    dispatch(setToken(token));
+
                 } else {
                     // Обработка ошибки, например, неверный логин/пароль
                     alert('Неверный логин или пароль');
