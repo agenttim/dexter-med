@@ -31,10 +31,11 @@ export const useMedicalDocumentsHook = () => {
             const result = await response.json();
             const documentsArray = Object.entries(result).map(([id, data]) => ({id, ...data}));
             console.log(documentsArray);
+            console.log(token)
 
             dispatch(fetchMedDocSuccess(documentsArray));
         } catch (error) {
-            //console.error('Error fetching data:', error);
+            console.error('Error fetching data:', error);
             dispatch(fetchMedDocFailure(error));
         }
     }

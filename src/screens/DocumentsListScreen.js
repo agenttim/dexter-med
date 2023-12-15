@@ -12,6 +12,7 @@ export const DocumentsListScreen = ({navigation}) => {
     const dispatch = useDispatch()
     const {documents, loading, error} = useSelector(state => state.medicalDocuments)
     const {fetchData} = useMedicalDocumentsHook();
+    const { token } = useSelector((state) => state.auth);
 
     useEffect(() => {
         const unsubscribe = navigation.addListener('focus', () => {
@@ -19,7 +20,7 @@ export const DocumentsListScreen = ({navigation}) => {
         });
 
         return unsubscribe;
-    }, [navigation]);
+    }, [navigation, token]);
 
     // Сортировка документов по дате
     const sortedDocuments = [...documents].sort((b, a) => {
