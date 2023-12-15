@@ -10,12 +10,19 @@ import { API_URL } from '../globalConfig';
 export const useMedicalDocumentsHook = () => {
     const dispatch = useDispatch();
     const {documents, loading, error} = useSelector((state) => state.medicalDocuments);
+    const { token } = useSelector((state) => state.auth);
 
     const fetchData = async () => {
         try {
             dispatch(fetchMedDocRequest());
 
-            const response = await fetch(`${API_URL}/medical-documents`);
+            const response = await fetch(`${API_URL}/medical-documents/byUser`, {
+                method: 'GET',
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json',
+                },
+            });
 
             if (!response.ok) {
                 throw new Error(`HTTP error! Status: ${response.status}`);
@@ -23,7 +30,7 @@ export const useMedicalDocumentsHook = () => {
 
             const result = await response.json();
             const documentsArray = Object.entries(result).map(([id, data]) => ({id, ...data}));
-            //console.log(documentsArray);
+            console.log(documentsArray);
 
             dispatch(fetchMedDocSuccess(documentsArray));
         } catch (error) {

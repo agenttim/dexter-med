@@ -13,7 +13,6 @@ export const DocumentsListScreen = ({navigation}) => {
     const {documents, loading, error} = useSelector(state => state.medicalDocuments)
     const {fetchData} = useMedicalDocumentsHook();
 
-
     useEffect(() => {
         const unsubscribe = navigation.addListener('focus', () => {
             fetchData()
