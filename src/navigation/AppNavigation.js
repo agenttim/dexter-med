@@ -31,7 +31,8 @@ export const AppNavigation = ({}) => {
                     tabBarActiveTintColor: THEME.MAIN_COLOR,
                     tabBarInactiveTintColor: THEME.INACTIVE_COLOR,
                     tabBarLabelStyle: {
-                        fontSize: 13
+                        fontSize: 13,
+                        fontFamily: 'open-regular'
                     },
                     tabBarStyle: {
                         height: 70,
@@ -41,7 +42,8 @@ export const AppNavigation = ({}) => {
                     headerStyle: {
                         borderBottomWidth: 1,
                     },
-                    headerTintColor: THEME.MAIN_COLOR
+                    headerTintColor: THEME.MAIN_COLOR,
+                    headerTitleStyle: {fontFamily: 'open-regular'}
                 }}
             >
                 <Tab.Screen

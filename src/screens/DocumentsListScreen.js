@@ -23,7 +23,7 @@ export const DocumentsListScreen = ({navigation}) => {
     }, [navigation]);
 
     // Сортировка документов по дате
-    const sortedDocuments = [...documents].sort((a, b) => {
+    const sortedDocuments = [...documents].sort((b, a) => {
         return new Date(a.documentDate) - new Date(b.documentDate);
     });
 

@@ -8,9 +8,9 @@ export const MedicalDocument = ({document, onPress}) => {
             style={styles.componentStyle}
             onPress={onPress}
         >
-            <Text>{document.documentName}</Text>
-            <Text>{document.documentDescription}</Text>
-            <Text>
+            <Text style={styles.componentBoldText}>{document.documentName}</Text>
+            <Text style={styles.componentText}>{document.documentDescription}</Text>
+            <Text style={styles.componentText}>
                 {new Date(document.documentDate)
                     .toLocaleDateString('ru', {separator: '.'})}
             </Text>
@@ -27,6 +27,12 @@ const styles = StyleSheet.create({
         borderRadius: 20,
         padding: 15,
         elevation: 3,
-        backfaceVisibility: "visible"
+        backfaceVisibility: "visible",
+    },
+    componentBoldText: {
+        fontFamily: 'open-bold'
+    },
+    componentText: {
+        fontFamily: 'open-regular'
     }
 })

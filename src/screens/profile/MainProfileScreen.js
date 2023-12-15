@@ -36,7 +36,7 @@ export const MainProfileScreen = ({}) => {
         <View style={styles.container}>
             {userData && (
                 <View>
-                    <Text>Добро пожаловать: {userData.name}!</Text>
+                    <Text style={styles.componentText}>Добро пожаловать {userData.name}</Text>
                 </View>
             )}
         </View>
@@ -49,4 +49,8 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         flex: 1,
     },
+    componentText: {
+        fontFamily: 'open-regular',
+        fontSize: 17
+    }
 });

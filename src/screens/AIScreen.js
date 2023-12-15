@@ -4,7 +4,7 @@ import {View, Text, StyleSheet} from 'react-native';
 export const AIScreen = ({}) => {
     return (
         <View style={styles.screenStyle}>
-            <Text>AI Screen</Text>
+            <Text style={styles.componentText}>Скоро здесь будет ИИ доктор Dexter</Text>
         </View>
     )
 }
@@ -14,5 +14,9 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center'
+    },
+    componentText: {
+        fontFamily: 'open-regular',
+        fontSize: 17
     }
 })
