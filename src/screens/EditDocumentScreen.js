@@ -30,7 +30,7 @@ export const EditDocumentCardScreen = ({navigation, route}) => {
 
     return (
         <View style={styles.container}>
-            <Text style={{fontFamily: 'open-regular', fontSize: 15, marginBottom: 5}}>Изменить существующий документ:</Text>
+            <Text style={{fontFamily: 'open-regular', fontSize: 17, marginBottom: 5}}>Изменить существующий документ:</Text>
 
             <TextInput
                 style={styles.input}
@@ -71,7 +71,8 @@ const styles = StyleSheet.create({
         marginVertical: 5,
         borderWidth: 1,
         borderColor: THEME.INACTIVE_COLOR,
-        fontFamily: 'open-regular'
+        fontFamily: 'open-regular',
+        fontSize: 16
     },
     button: {
         marginTop: 5,

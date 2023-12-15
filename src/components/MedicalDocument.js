@@ -30,9 +30,11 @@ const styles = StyleSheet.create({
         backfaceVisibility: "visible",
     },
     componentBoldText: {
-        fontFamily: 'open-bold'
+        fontFamily: 'open-bold',
+        fontSize: 16
     },
     componentText: {
-        fontFamily: 'open-regular'
+        fontFamily: 'open-regular',
+        fontSize: 14
     }
 })

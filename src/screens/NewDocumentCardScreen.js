@@ -50,7 +50,7 @@ export const NewDocumentCardScreen = ({navigation}) => {
 
     return (
         <View style={styles.container}>
-            <Text style={{fontFamily: 'open-regular', fontSize: 15, marginBottom: 5}}>Добавить новый документ:</Text>
+            <Text style={{fontFamily: 'open-regular', fontSize: 17, marginBottom: 5}}>Добавить новый документ:</Text>
 
             <TextInput
                 style={styles.input}
@@ -109,6 +109,7 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderColor: THEME.INACTIVE_COLOR,
         fontFamily: 'open-regular',
+        fontSize: 16
     },
 
 })

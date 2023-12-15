@@ -81,6 +81,7 @@ const styles = StyleSheet.create({
         padding: 10,
         width: '100%',
         fontFamily: 'open-regular',
+        fontSize: 16
     },
     button: {
         marginTop: 15,
