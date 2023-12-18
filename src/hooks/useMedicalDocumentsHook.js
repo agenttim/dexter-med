@@ -44,6 +44,9 @@ export const useMedicalDocumentsHook = () => {
         try {
             await fetch(`${API_URL}/medical-documents/${id}`, {
                 method: 'DELETE',
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                }
             })
         } catch (error) {
             console.error('Error deleting document:', error)
@@ -56,6 +59,7 @@ export const useMedicalDocumentsHook = () => {
                 method: 'PATCH',
                 headers: {
                     'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`,
                 },
                 body: JSON.stringify(newData),
             });

@@ -5,6 +5,7 @@ import {THEME} from "../theme";
 import {DateSelection} from "../components/DateSelection";
 import {PdfLoading} from "../components/PdfLoading";
 import {API_URL} from "../globalConfig";
+import {useSelector} from "react-redux";
 
 
 export const NewDocumentCardScreen = ({navigation}) => {
@@ -13,6 +14,7 @@ export const NewDocumentCardScreen = ({navigation}) => {
     const [description, setDescription] = useState('');
     const [date, setDate] = useState(new Date());
     const [pdfUrl, setPdfUrl] = useState(null);
+    const { token } = useSelector((state) => state.auth);
 
 
     const addDocument = async () => {
@@ -28,7 +30,8 @@ export const NewDocumentCardScreen = ({navigation}) => {
             const response = await fetch(`${API_URL}/medical-documents`, {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
                 },
                 body: JSON.stringify(document)
             })
